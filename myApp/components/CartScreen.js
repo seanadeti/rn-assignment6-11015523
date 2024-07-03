@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import { CartContext } from '../global/CartContext';
 
 const CartScreen = () => {
@@ -13,7 +13,7 @@ const CartScreen = () => {
         <Text style={styles.cartItemPrice}>${item.price}</Text>
       </View>
       <TouchableOpacity onPress={() => removeFromCart(item.cartItemId)} style={styles.removeFromCartButton}>
-        <Text style={styles.removeFromCartButtonText}>Remove</Text>
+        <Image source={require('../images/remove.png')}/>
       </TouchableOpacity>
     </View>
   );
@@ -23,9 +23,20 @@ const CartScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View>
-        <Text>Checkout</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={{flexDirection: 'row', marginBottom:10}}>
+        <View style={styles.logo}>
+          <Image source={require('../images/Logo.png')}/>
+        </View>
+        <View style={styles.search}>
+          <Image source={require('../images/Search.png')}/>
+        </View>
+      </View>
+      <View style={styles.head}>
+        <Text style={styles.headText}>CHECKOUT</Text>
+        <View style={styles.divider}>
+          <View style={styles.diamond}></View>
+        </View>
       </View>
       {cartItems.length === 0 ? (
         <Text style={styles.emptyCartMessage}>Your cart is empty.</Text>
@@ -36,6 +47,7 @@ const CartScreen = () => {
             keyExtractor={(item) => item.cartItemId}
             renderItem={renderItem}
             numColumns={1}
+            style={{marginTop: 20}}
           />
           <View style={styles.cartTotalContainer}>
             <Text style={styles.cartTotalText}>EST. TOTAL:</Text>
@@ -46,7 +58,7 @@ const CartScreen = () => {
           </View>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -54,6 +66,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  head: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headText: {
+    fontSize: 24,
+    letterSpacing: 4,
+    color: '#000',
+  },
+  divider: {
+    width: '30%',
+    height: 1,
+    backgroundColor: '#ccc',
+    marginTop: 10,
+    position: 'relative',
+  },
+  diamond: {
+    position: 'absolute',
+    top: -6,
+    left: '50%',
+    width: 12,
+    height: 12,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    transform: [{ rotate: '45deg' }],
   },
   cartItemContainer: {
     flex: 1,
@@ -80,7 +119,7 @@ const styles = StyleSheet.create({
   },
   removeFromCartButton: {
     marginLeft: 'auto',
-    backgroundColor: '#f44336',
+
     padding: 10,
     borderRadius: 4,
   },
@@ -107,13 +146,22 @@ const styles = StyleSheet.create({
   checkout: {
     backgroundColor: 'black',
     height: 70,
-    marginBottom: 5,
     justifyContent: 'center',
     alignItems: 'center'
   },
   checkoutText: {
     color: 'white',
     fontSize: 20
+  },
+  search: {
+    alignItems: 'flex-end', 
+    padding: 20
+  },
+  logo: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 60
   }
 });
 

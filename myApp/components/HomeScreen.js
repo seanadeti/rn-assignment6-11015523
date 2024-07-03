@@ -14,7 +14,7 @@ const products = [
   { id: '8', name: 'Lame', price: 120, image: require('../images/dress2.png') },
 ];
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const { addToCart } = useContext(CartContext);
 
   const renderItem = ({ item }) => (
@@ -23,22 +23,32 @@ const HomeScreen = () => {
       <Text style={styles.productName}>{item.name}</Text>
       <Text style={{ opacity: 0.4 }}>reversible angora cardigan</Text>
       <Text style={styles.productPrice}>${item.price}</Text>
-
-      <TouchableOpacity onPress={() => addToCart(item)} style={styles.addToCartButton}>
-        <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+      <TouchableOpacity onPress={() => addToCart(item)} style={styles.addToCartIcon}>
+        <Image source={require('../images/add_circle.png')}/>
       </TouchableOpacity>
+      
     </View>
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.head}>
-        <Text style={styles.headText}>OUR STORY</Text>
+        <Image source={require('../images/Menu.png')}/>
+        <Image source={require('../images/Logo.png')}/>
+        <View style={{flexDirection: 'row'}}>
+          <Image source={require('../images/Search.png')}/>
+          <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={styles.cartButton}>
+            <Image source={require('../images/shoppingBag.png')}/>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.top}>
+        <Text style={styles.topText}>OUR STORY</Text>
         <View style={{ flexDirection: 'row' }}>
-          <View style={styles.headIcons}>
+          <View style={styles.topIcons}>
             <Image source={require('../images/Listview.png')} />
           </View>
-          <View style={[styles.headIcons, { marginRight: 0 }]}>
+          <View style={[styles.topIcons, { marginRight: 0 }]}>
             <Image source={require('../images/Filter.png')} />
           </View>
         </View>
@@ -61,6 +71,12 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   head: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+    paddingBottom: 5
+  },
+  top: {
     paddingLeft: 25,
     padding: 15,
     fontSize: 20,
@@ -69,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  headIcons: {
+  topIcons: {
     marginRight: 15,
     backgroundColor: '#f9f9f9',
     height: 40,
@@ -79,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 7,
   },
-  headText: {
+  topText: {
     fontSize: 20,
     fontWeight: '500',
   },
@@ -117,6 +133,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 14,
+  },
+  cartButton: {
+    marginLeft: 15
+  },
+  addToCartIcon: {
+    position:'absolute',
+    alignSelf: 'flex-end',
+    bottom: 105,
+    right: 23 
   },
 });
 

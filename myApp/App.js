@@ -1,20 +1,20 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './components/HomeScreen';
 import CartScreen from './components/CartScreen';
 import {CartProvider} from './global/CartContext'
 
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <CartProvider>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
-          <Drawer.Screen name="Home" component={HomeScreen} />
-          <Drawer.Screen name="Cart" component={CartScreen} />
-        </Drawer.Navigator>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Cart" component={CartScreen} />
+        </Stack.Navigator>
       </NavigationContainer>
     </CartProvider>
   );
